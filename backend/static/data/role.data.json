@@ -1,0 +1,5 @@
+{
+    "name": "admin",
+    "key": "ROLE_ADMIN",
+    "description": "full access to the application"
+}

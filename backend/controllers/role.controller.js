@@ -1,7 +1,7 @@
 const Role = require("../models/Role");
 const permissionController = require("../controllers/permission.controller");
 const userController = require("../controllers/user.controller");
-//const roleData = require("../static/data/role.data.json");
+const roleData = require("../static/data/role.data.json");
 const Permission = require("../models/Permission");
 
 /**

@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit {
   public listTitles: any[];
   public location: Location;
   profile!: Profile;
+  defaultImage: string = "assets/img/brand/default-user.jpg";
   constructor(location: Location, private authService: AuthService, private profileService: ProfileService) {
     this.location = location;
   }
@@ -43,6 +44,9 @@ export class NavbarComponent implements OnInit {
     this.profileService.getMyProfile().subscribe({
       next: (profile: Profile) => {
         this.profile = profile;
+        if (this.profile.imageUrl) {
+          this.defaultImage = this.profile.imageUrl;
+        }
       },
       error: (error) => {
         console.log(error);

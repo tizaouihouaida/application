@@ -15,17 +15,17 @@ const {
   connectToDatabase,
 } = require("./helpers/connect-to-database");
 connectToDatabase();
-// sequelize.sync({});
+sequelize.sync({});
 
 const permissionGroupControllers = require("./controllers/permission-group.controller");
 const permissionControllers = require("./controllers/permission.controller");
-// const roleControllers = require("./controllers/role.controller");
-// const userControllers = require("./controllers/user.controller");
+const roleControllers = require("./controllers/role.controller");
+const userControllers = require("./controllers/user.controller");
 
-// userControllers.initUserFromJsonFile().then(() => console.log);
 permissionGroupControllers.insertPermissionGroupFromJsonFileIntoDatabase();
 permissionControllers.insertPermissionsFromJsonFileIntoDatabase();
-// roleControllers.initAdminRoleFromJsonFile();
+roleControllers.initAdminRoleFromJsonFile();
+userControllers.initUserFromJsonFile().then(() => console.log);
 
 const permissionGroupRoutes = require("./routes/permission-group.routes");
 const roleRoutes = require("./routes/role.routes");

@@ -1,5 +1,5 @@
 const User = require("../models/User");
-//const userData = require("../static/data/user.data.json");
+const userData = require("../static/data/user.data.json");
 const Role = require("../models/Role");
 const Permission = require("../models/Permission");
 
