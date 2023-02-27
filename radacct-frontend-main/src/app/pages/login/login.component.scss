@@ -1,0 +1,37 @@
+.separator-bottom svg {
+  bottom: -1px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+}
+
+.eye-position {
+  padding-top: 10px;
+  padding-right: 15px;
+}
+
+.margin-bottom-input {
+  margin-bottom: 30px;
+}
+
+.loading::after {
+  content: "";
+  width: 50px;
+  height: 50px;
+  border: 10px solid #dddddd;
+  border-top-color: #009579;
+  border-radius: 50%;
+  animation: loading 1s ease infinite;
+}
+
+@keyframes loading {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.error-message {
+  color: red;
+}

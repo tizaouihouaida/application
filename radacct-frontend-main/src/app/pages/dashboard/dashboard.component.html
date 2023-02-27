@@ -1,0 +1,212 @@
+<div class="header bg-gradient-success pt-md-7"></div>
+
+<div
+  *ngIf="errorMessage"
+  class="alert alert-danger alert-margin-top text-center alert-style font-family-lato"
+  role="alert"
+>
+  <span>{{ errorMessage }}</span>
+</div>
+
+<div
+  *ngIf="successMessage"
+  class="alert alert-success alert-margin-top text-center alert-style font-family-lato"
+  role="alert"
+>
+  <span>{{ successMessage }}</span>
+</div>
+
+<form [formGroup]="searchForm">
+  <div
+    class="mt-4 mb-4 d-flex justify-content-between"
+    style="margin: auto; width: fit-content"
+  >
+    <div>
+      <input
+        id="fix-number"
+        formControlName="search"
+        class="input-style"
+        type="text"
+        placeholder="Enter fixe number, cin or mac address"
+        (keyup.enter)="Search()"
+      />
+    </div>
+  </div>
+</form>
+
+<div class="center-block" *ngIf="isLoading">
+  <div class="lds-dual-ring"></div>
+</div>
+
+<table
+  *ngIf="clientStatus && !isLoading"
+  class="table table-bordered table-striped loading-position"
+>
+  <thead>
+    <tr>
+      <th scope="col" class="text-style font-family-lato">Client Details</th>
+      <th scope="col" class="text-style font-family-lato">Status Client</th>
+      <th scope="col" class="text-style font-family-lato">Authentification</th>
+      <th scope="col" class="text-style font-family-lato">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-style font-family-lato">
+        <ul>
+          <li>name: {{ clientStatus?.name }}</li>
+          <li>fixe: {{ clientStatus?.tel_fix }}</li>
+          <li>cin: {{ clientStatus?.cin }}</li>
+          <li>mac: {{ clientStatus?.mac }}</li>
+          <li>SN: {{ clientStatus?.SN }}</li>
+        </ul>
+      </td>
+      <td class="text-style font-family-lato">
+        <ul *ngIf="lnsResponse.length > 0">
+          <li
+            [ngClass]="
+              isSuspended(lnsResponse[3]) === 'suspended'
+                ? 'text-danger'
+                : 'text-success'
+            "
+          >
+            Status: {{ isSuspended(lnsResponse[3]) }}
+          </li>
+          <li>LNS: {{ clientStatus?.lns_name }}</li>
+          <li>@MAC: {{ lnsResponse[1] }}</li>
+          <li>IP: {{ lnsResponse[3] }}</li>
+        </ul>
+        <p
+          *ngIf="clientStatus.lns_response == 'none'"
+          class="text-style font-family-lato danger-text"
+        >
+          client is not connected
+        </p>
+      </td>
+      <td class="text-style font-family-lato">
+        <ul>
+          <li>
+            status:
+            <span *ngIf="clientStatus?.reply !== 'none'">{{
+              clientStatus?.reply
+            }}</span>
+            <span *ngIf="clientStatus?.reply == 'none'"> - </span>
+          </li>
+          <li>
+            date:
+            <span *ngIf="clientStatus?.auth_date !== 'none'">
+              {{ clientStatus?.auth_date }}
+            </span>
+            <span *ngIf="clientStatus?.auth_date == 'none'"> - </span>
+          </li>
+          <li>
+            Mac:
+            <span *ngIf="clientStatus?.auth_mac !== 'none'">
+              {{ clientStatus?.auth_mac }}
+            </span>
+            <span *ngIf="clientStatus?.auth_mac == 'none'"> - </span>
+          </li>
+        </ul>
+      </td>
+      <td>
+        <ul class="no-bullets">
+          <li class="li-margin">
+            <img
+              src="assets/img/brand/reactivation.png"
+              class="icon-style"
+              alt=""
+              title="reactivation"
+              (click)="reactivateClient()"
+            />
+          </li>
+          <li
+            class="li-margin"
+            *ngIf="
+              clientStatus.lns_response !== 'none' &&
+              isSuspended(lnsResponse[3]) !== 'suspended'
+            "
+          >
+            <img
+              src="assets/img/brand/suspension.png"
+              class="icon-style"
+              alt=""
+              title="suspension"
+              (click)="suspendClient()"
+            />
+          </li>
+          <li class="li-margin" *ngIf="clientStatus.lns_response !== 'none'">
+            <img
+              src="assets/img/brand/clear.png"
+              (click)="clearInterface()"
+              class="icon-style"
+              alt=""
+              title="clear interface"
+            />
+          </li>
+          <li class="li-margin">
+            <img
+              src="assets/img/brand/eye.png"
+              (click)="viewHistoric()"
+              class="icon-style"
+              alt=""
+              title="view historic"
+            />
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="center-block" *ngIf="isLoadingHistoric">
+  <div class="lds-dual-ring"></div>
+</div>
+
+<table
+  *ngIf="historic.length > 0 && !isLoading"
+  class="table table-bordered table-striped loading-position"
+>
+  <thead>
+    <tr>
+      <!-- <th scope="col" class="text-style font-family-lato">Login</th> -->
+      <th scope="col" class="text-style font-family-lato">Status</th>
+      <th scope="col" class="text-style font-family-lato">Start Time</th>
+      <th scope="col" class="text-style font-family-lato">Stop Time</th>
+      <th scope="col" class="text-style font-family-lato">Session Time</th>
+      <th scope="col" class="text-style font-family-lato">Ip Address</th>
+      <th scope="col" class="text-style font-family-lato">LNS</th>
+      <!-- <th scope="col" class="text-style font-family-lato">Tel Adsl</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="
+        let historicElement of historic | paginate : { itemsPerPage, currentPage };
+        index as i
+      "
+    >
+      <!-- <td class="text-style font-family-lato">{{ historicElement.username }}</td> -->
+      <td class="text-style font-family-lato">{{ historicElement.acctstatustype }}</td>
+      <td class="text-style font-family-lato">
+        {{ historicElement.acctstarttime | date : "dd/MM/yyyy HH:mm:ss": "UTC"}}
+      </td>
+      <td class="text-style font-family-lato">
+        <span *ngIf="historicElement.acctstoptime">
+          {{ historicElement.acctstoptime | date : "dd/MM/yyyy HH:mm:ss": "UTC" }}
+        </span>
+        <span *ngIf="!historicElement.acctstoptime">
+          -
+        </span>
+      </td>
+      <td class="text-style font-family-lato">{{ formatPeriode(historicElement.acctsessiontime) }}</td>
+      <td class="text-style font-family-lato">{{ historicElement.nasipaddress }}</td>
+      <td class="text-style font-family-lato">{{ historicElement.framedipaddress }}</td>
+      <!-- <td class="text-style font-family-lato">{{ historicElement.tel_adsl }}</td> -->
+    </tr>
+  </tbody>
+</table>
+
+<pagination-controls
+  *ngIf="historic.length > 0"
+  (pageChange)="currentPage = $event"
+></pagination-controls>

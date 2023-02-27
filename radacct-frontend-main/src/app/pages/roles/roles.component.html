@@ -1,0 +1,165 @@
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <div class="popup-title-position">
+      <h4 class="modal-title text-center" id="modal-basic-title">
+        Delete Role
+      </h4>
+    </div>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body popup-text-style">
+    {{ deleteAlertMessage }}
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark font-family-lato"
+      (click)="modal.close('Close click')"
+    >
+      Close
+    </button>
+    <button
+      type="button"
+      class="btn btn-outline-danger font-family-lato"
+      (click)="modal.close('Close Ok'); deleteRole()"
+    >
+      Ok
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #viewPermissionsModal let-modal>
+  <div class="modal-header">
+    <div class="popup-title-position">
+      <h4 class="modal-title text-center" id="modal-basic-title">
+        Permissions List
+      </h4>
+    </div>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="popup-text-style">
+    <ul>
+      <li *ngFor="let permission of permissionsToView">{{permission}}</li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-outline-dark font-family-lato"
+      (click)="modal.close('Close click')"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>
+
+<div class="header bg-gradient-success pt-md-7"></div>
+
+<br />
+
+<div class="center-block" *ngIf="isLoading">
+  <div class="lds-dual-ring"></div>
+</div>
+
+<div class="d-flex justify-content-between search-input" *ngIf="!isLoading">
+  <input
+    type="text"
+    class="search"
+    (keyup)="search($event)"
+    placeholder="Search"
+  />
+  <div
+    class="button-add-user-position"
+    *ngIf="hasPermission('PERMISSION_ADD_ROLES')"
+  >
+  <button [routerLink]="['/add-role']"  class="button-add-user font-family-lato">
+    Create Role
+  </button>
+  </div>
+</div>
+
+<div
+  *ngIf="successMessage"
+  class="alert alert-success alert-style"
+  role="alert"
+>
+  {{ successMessage }}
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger alert-style" role="alert">
+  {{ errorMessage }}
+</div>
+
+<table
+  *ngIf="roles.length > 0 && !isLoading"
+  class="table table-bordered table-striped loading-position"
+>
+  <thead>
+    <tr>
+      <th scope="col" class="text-style">#</th>
+      <th scope="col" class="text-style">Name</th>
+      <th scope="col" class="text-style">Description</th>
+      <th scope="col" class="text-style text-center">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let role of roles | paginate : { itemsPerPage, currentPage }; index as i">
+        <th scope="row" class="text-style">{{ i + 1 }}</th>
+        <td class="text-style">{{ role.name }}</td>
+        <td class="text-style">{{ role.description }}</td>
+        <!-- *ngIf="hasPermission('PERMISSION_EDIT_ROLES') || hasPermission('PERMISSION_DELETE_ROLES')" -->
+        <td class="text-center">
+          <button
+            *ngIf="hasPermission('PERMISSION_EDIT_ROLES')"
+            class="button-style"
+            [routerLink]="['/edit-role', role.id]"
+            title="edit role"
+          >
+            <img
+              class="icon-style"
+              src="assets/img/brand/edit-icon.png"
+              alt=""
+            />
+          </button>
+          <button
+            *ngIf="hasPermission('PERMISSION_DELETE_ROLES')"
+            class="button-style"
+            (click)="open(mymodal, role)"
+            title="delete role"
+          >
+            <img
+              class="icon-style"
+              src="assets/img/brand/delete-icon.png"
+              alt=""
+            />
+          </button>
+          <button class="button-style eye-button" title="view permissions" (click)="showPermissions(viewPermissionsModal, role)">
+            <i class="fa fa-eye"></i>
+          </button>
+        </td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="roles.length === 0 && !isLoading" class="message-style">
+  <span *ngIf="!hasFilter"> No roles Found </span>
+  <span *ngIf="hasFilter"> No roles found for the selected filter </span>
+</p>
+
+<pagination-controls *ngIf="roles.length > 0"
+  (pageChange)="currentPage = $event"
+  ></pagination-controls>

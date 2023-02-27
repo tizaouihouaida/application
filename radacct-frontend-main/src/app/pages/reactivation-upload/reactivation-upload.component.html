@@ -1,0 +1,30 @@
+<div class="card card-style">
+    <div class="card-header text-center font-family-lato header-style">
+      Upload Reactivation Csv File
+    </div>
+    <div class="card-body font-family-lato card-body-style">
+      <form [formGroup]="form">
+        <div>
+          <label class="label-style">Select reactivation csv file: </label>
+          <button class="select-button" (click)="filePicker.click()">
+            Select csv file
+          </button>
+          <span class="file-name" *ngIf="fileName">{{ fileName }}</span>
+          <input type="file" #filePicker (change)="onSelectFile($event)" />
+          <div
+            *ngIf="
+              form.get('suspensionFile').dirty &&
+              form.get('suspensionFile').invalid
+            "
+            class="error-message"
+          >
+            Please select a valid csv file
+          </div>
+        </div>
+      </form>
+      <button [disabled]="form.invalid" class="button-upload-file text-center" (click)="uploadFile()">
+        Upload
+      </button>
+    </div>
+  </div>
+  

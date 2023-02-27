@@ -1,0 +1,8 @@
+{
+    "prettier.requireConfig": true,
+    "editor.bracketPairColorization.enabled": true,
+    "workbench.colorCustomizations": {
+    
+    },
+    "angular.enable-strict-mode-prompt": false
+}

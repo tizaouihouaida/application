@@ -1,0 +1,43 @@
+<div class="header bg-gradient-success pt-md-7"></div>
+
+<ngb-alert
+  [dismissible]="false"
+  *ngIf="alertMessage"
+  [type]="alertType"
+  class="margin-40 font-family-lato alert-style d-flex"
+  >
+  <h4 class="alert-heading back-to-line" [innerHTML]="alertMessage"></h4>
+  <button type="button" class="close d-flex" aria-label="Close"
+      (click)="closeAlert()">
+      <span class="close-alert-padding-top font-size-close-alert" aria-hidden="true">&times;</span>
+    </button>
+</ngb-alert>
+
+<ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs margin-30">
+	<li [ngbNavItem]="1">
+		<a ngbNavLink class="font-family-lato">Clients Will Suspend</a>
+		<ng-template ngbNavContent>
+            <div class="margin-top-content">
+                <app-suspenssion-list></app-suspenssion-list>
+            </div>
+		</ng-template>
+	</li>
+    <li [ngbNavItem]="2">
+		<a ngbNavLink class="font-family-lato">Clients Suspended</a>
+		<ng-template ngbNavContent>
+            <div class="margin-top-content">
+                <app-suspended-list></app-suspended-list>
+            </div>
+		</ng-template>
+	</li>
+	<li [ngbNavItem]="3">
+		<a ngbNavLink class="font-family-lato">Upload Suspension File</a>
+		<ng-template ngbNavContent>
+            <div class="margin-top-content">
+                <app-suspenssion-upload (emitAlert)="handleAlert($event)"></app-suspenssion-upload>
+            </div>
+		</ng-template>
+	</li>
+</ul>
+
+<div [ngbNavOutlet]="nav" class="mt-2"></div>

@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Manage Users",
+        "key": "PERMISSION_GROUP_MANAGE_USERS"
+    },
+    {
+        "name": "Manage Roles",
+        "key": "PERMISSION_GROUP_MANAGE_ROLES"
+    },
+    {
+        "name": "Manage Radacct",
+        "key": "PERMISSION_GROUP_MANAGE_RADACCT"
+    },
+    {
+        "name": "Manage First Connexion",
+        "key": "PERMISSION_GROUP_MANAGE_FIRST_CONNEXION"
+    },
+    {
+        "name": "Manage Suspension",
+        "key": "PERMISSION_GROUP_MANAGE_SUSPENSION"
+    },
+    {
+        "name": "Manage Stock Modem",
+        "key": "PERMISSION_GROUP_MANAGE_STOCK_MODEM"
+    },
+    {
+        "name": "Manage Customers",
+        "key": "PERMISSION_GROUP_MANAGE_CUSTOMERS"
+    }
+]

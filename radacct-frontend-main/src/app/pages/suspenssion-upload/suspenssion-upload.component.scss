@@ -1,0 +1,87 @@
+.button-upload-file {
+  border-radius: 20px;
+  width: 170px;
+  border: none;
+  height: 40px;
+  background-color: #2dcecc;
+  color: #fff;
+  font-family: "lato";
+  // margin: 0px auto;
+}
+
+.card-style {
+  height: 250px;
+  width: 60%;
+  margin: 30px auto;
+}
+
+.card-body-style {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.header-style {
+  background-color: #f0f2f9f0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+input[type="file"] {
+  visibility: hidden;
+}
+
+.select-button {
+  width: 200px;
+  height: 35px;
+  border-radius: 15px;
+  outline: none;
+  border: none;
+  background-color: #b9bfbed1;
+}
+
+.error-message {
+  margin-top: 15px;
+  color: red;
+  font-family: lato;
+  font-size: 17px;
+}
+
+.file-name {
+  margin-left: 15px;
+  font-family: lato;
+  font-size: 18px;
+  color: #625d5d;
+}
+
+.label-style {
+  font-family: lato;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.margin-40 {
+  margin: 40px;
+}
+
+.close-alert-padding-top {
+  padding-top: 6px;
+}
+
+.font-size-close-alert {
+  font-size: 25px !important;
+}
+
+.back-to-line {
+  white-space: pre-wrap;
+}
+
+.alert-style {
+  justify-content: space-between;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+

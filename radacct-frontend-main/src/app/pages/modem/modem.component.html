@@ -1,0 +1,66 @@
+<div class="header bg-gradient-success pt-md-7"></div>
+
+<div
+  *ngIf="errorMessage"
+  class="alert mt-3 alert-danger text-center alert-style font-family-lato"
+  role="alert"
+>
+  <span>{{ errorMessage }}</span>
+</div>
+
+<form [formGroup]="searchForm">
+  <div class="m-4 d-flex justify-content-between">
+    <div class="d-flex">
+      <label for="fix-number" class="mr-1 font-family-lato">Mac Or SN: </label>
+      <div>
+        <input
+          id="fix-number"
+          formControlName="filter"
+          class="input-style"
+          type="text"
+          placeholder="Enter mac address or serial number"
+          (keyup.enter)="filterModem()"
+        />
+        <div
+          class="error-text font-family-lato"
+          *ngIf="
+            searchForm.get('filter').invalid && searchForm.get('filter').dirty
+          "
+        >
+          <div *ngIf="searchForm.get('filter').errors.required">
+            Mac or Serial number is required
+          </div>
+        </div>
+      </div>
+    </div>
+    <button (click)="filterModem()" class="btn-submit font-family-lato">
+      Submit
+    </button>
+  </div>
+</form>
+
+<div class="center-block" *ngIf="isLoading">
+  <div class="lds-dual-ring"></div>
+</div>
+
+<table
+  *ngIf="modem && !isLoading"
+  class="table table-bordered table-striped loading-position"
+>
+  <thead>
+    <tr>
+      <th scope="col" class="text-style font-family-lato">MAC</th>
+      <th scope="col" class="text-style font-family-lato">SN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-style font-family-lato">
+        {{ modem?.Mac }}
+      </td>
+      <td class="text-style font-family-lato">
+        {{ modem?.SN }}
+      </td>
+    </tr>
+  </tbody>
+</table>

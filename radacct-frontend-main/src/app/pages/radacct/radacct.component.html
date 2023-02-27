@@ -1,0 +1,211 @@
+<div class="header bg-gradient-success pt-md-7"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <div
+    *ngIf="errorMessage"
+    class="alert alert-danger text-center alert-style font-family-lato"
+    role="alert"
+  >
+    <span>{{ errorMessage }}</span>
+  </div>
+  <form [formGroup]="searchForm">
+    <div class="row" style="margin: 20px 0px">
+      <div class="container-search">
+        <div class="item">
+          <label class="label-style font-family-lato">Fix Number: </label>
+          <input
+            class="input-style"
+            (keypress)="numberOnly($event)"
+            formControlName="telAdsl"
+            placeholder="Fix Number"
+            type="text"
+          />
+          <div
+            class="error-text font-family-lato"
+            *ngIf="
+              searchForm.get('telAdsl').invalid &&
+              searchForm.get('telAdsl').dirty
+            "
+          >
+            <div *ngIf="searchForm.get('telAdsl').errors.required">
+              Tel Adsl required
+            </div>
+            <div *ngIf="searchForm.get('telAdsl').errors.minlength">
+              Length should be equal 8
+            </div>
+            <div *ngIf="searchForm.get('telAdsl').errors.maxlength">
+              Length should be equal 8
+            </div>
+            <div *ngIf="searchForm.get('telAdsl').errors.pattern">
+              Enter only number
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <label class="label-style font-family-lato">Start Date: </label>
+          <input class="input-style" formControlName="startDate" type="date" />
+          <div
+            class="error-text"
+            *ngIf="
+              searchForm.get('startDate').invalid &&
+              searchForm.get('startDate').dirty
+            "
+          >
+            <div
+              class="font-family-lato"
+              *ngIf="searchForm.get('startDate').errors.required"
+            >
+              Start Date required
+            </div>
+            <div
+              class="font-family-lato"
+              *ngIf="searchForm.get('startDate').errors.greaterThanTodayError"
+            >
+              End Date should be less than today
+            </div>
+          </div>
+        </div>
+
+        <div class="item">
+          <label class="label-style font-family-lato">End Date: </label>
+          <input class="input-style" formControlName="endDate" type="date" />
+          <div
+            class="error-text font-family-lato"
+            *ngIf="
+              searchForm.get('endDate').invalid &&
+              searchForm.get('endDate').dirty
+            "
+          >
+            <div *ngIf="searchForm.get('endDate').errors.required">
+              End Date required
+            </div>
+            <div *ngIf="searchForm.get('endDate').errors.greaterThanTodayError">
+              End Date should be less than today
+            </div>
+          </div>
+          <div
+            class="error-text"
+            *ngIf="searchForm?.errors?.startDateGreaterThanEndDate"
+          >
+            <span> End Date should be greater than Start Date </span>
+          </div>
+        </div>
+
+        <div class="item">
+          <button
+            class="btn-submit font-family-lato"
+            (click)="searchClientByTelAdslAndStartDate()"
+            [disabled]="searchForm.invalid"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <!-- Loading -->
+  <div class="center-block" *ngIf="isLoading">
+    <div class="lds-dual-ring"></div>
+  </div>
+
+  <div *ngIf="radaccts.length > 0 && !isLoading" class="show-client-details">
+    <div class="padding-right-client-details font-family-lato">
+      <label for=""
+        >Client: <span> {{ formatName(radaccts[0]?.client) }}</span>
+      </label>
+    </div>
+    <div class="font-family-lato">
+      <label for=""
+        >Tel Adsl: <span>{{ radaccts[0]?.tel_adsl }}</span>
+      </label>
+    </div>
+    <div class="font-family-lato">
+      <label for=""
+        >Total: <span>{{ formatPeriode(total) }}</span>
+      </label>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="row" *ngIf="radaccts.length > 0 && !isLoading">
+    <div class="col">
+      <div class="card shadow">
+        <!-- <div class="card-header border-0">
+          <h3 class="mb-0">Radacct Table</h3>
+        </div> -->
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+              <tr class="font-family-lato">
+                <!-- <th scope="col">Fix Number</th> -->
+                <th scope="col">Id</th>
+                <th scope="col">Topic</th>
+                <th scope="col">Creation Date</th>
+                <th scope="col">Resolution Date</th>
+                <th scope="col">Connection Date</th>
+                <th scope="col">Stop Duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="
+                  let radacct of radaccts
+                    | paginate : { itemsPerPage, currentPage };
+                  let index = index
+                "
+              >
+                <th scope="row">
+                  <div class="media align-items-center font-family-lato">
+                    <span>{{ index + 1 }}</span>
+                  </div>
+                </th>
+                <!-- <td>
+                  <span>{{ radacct.client }}</span>
+                </td> -->
+                <td class="font-family-lato">
+                  <span>{{ radacct.sujet }}</span>
+                </td>
+                <td class="font-family-lato">
+                  <span>{{
+                    radacct.date_creation | date : "dd/MM/yyyy HH:mm:ss": "UTC"
+                  }}</span>
+                </td>
+                <td class="font-family-lato">
+                  <span *ngIf="radacct.date_resolution">{{
+                    radacct.date_resolution | date : "dd/MM/yyyy HH:mm:ss": "UTC"
+                  }}</span>
+                  <span *ngIf="!radacct.date_resolution"> - </span>
+                </td>
+                <td class="font-family-lato">
+                  <span *ngIf="radacct?.nearestElement?.acctstarttime">{{
+                    radacct.nearestElement.acctstarttime
+                      | date : "dd/MM/yyyy HH:mm:ss": 'UTC'
+                  }}</span>
+                  <span *ngIf="!radacct?.nearestElement?.acctstarttime">-</span>
+                </td>
+                <td class="font-family-lato">
+                  <span *ngIf="radacct?.nearestDiff">{{
+                    formatPeriode(radacct?.nearestDiff)
+                  }}</span>
+                  <span *ngIf="!radacct?.nearestDiff">-</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <pagination-controls
+          (pageChange)="currentPage = $event"
+        ></pagination-controls>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="radaccts.length == 0 && !isLoading">
+    <p class="message-select-style font-family-lato">
+      Please select fix number, Start Date and End Date then click on submit
+      button
+    </p>
+  </div>
+</div>

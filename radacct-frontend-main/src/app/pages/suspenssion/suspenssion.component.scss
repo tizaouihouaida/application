@@ -1,0 +1,42 @@
+.margin-30 {
+  margin: 30px;
+}
+
+.margin-top-content {
+  margin-top: 40px;
+}
+
+::ng-deep .tab-content {
+  margin: 0px 30px;
+}
+
+.error-message {
+  margin-top: 15px;
+  color: red;
+  font-family: lato;
+  font-size: 17px;
+}
+
+.margin-40 {
+  margin: 40px;
+}
+
+.close-alert-padding-top {
+  padding-top: 6px;
+}
+
+.font-size-close-alert {
+  font-size: 25px !important;
+}
+
+.back-to-line {
+  white-space: pre-wrap;
+}
+
+.alert-style {
+  justify-content: space-between;
+}
+
+.d-flex {
+  display: flex !important;
+}

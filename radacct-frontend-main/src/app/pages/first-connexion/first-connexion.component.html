@@ -1,0 +1,66 @@
+<div class="header bg-gradient-success pt-md-7"></div>
+
+<div
+  *ngIf="errorMessage"
+  class="alert mt-3 alert-danger text-center alert-style font-family-lato"
+  role="alert"
+>
+  <span>{{ errorMessage }}</span>
+</div>
+
+<form [formGroup]="searchForm">
+  <div class="m-4 d-flex justify-content-between">
+    <div>
+      <label for="fix-number" class="mr-1 font-family-lato">Fix Number: </label>
+      <input
+        id="fix-number"
+        formControlName="telAdsl"
+        class="input-style"
+        type="text"
+        placeholder="enter fixe number"
+        (keyup.enter)="getFirstConnexion()"
+      />
+    </div>
+    <button (click)="getFirstConnexion()" class="btn-submit font-family-lato">
+      Submit
+    </button>
+  </div>
+</form>
+
+<div class="center-block" *ngIf="isLoading">
+  <div class="lds-dual-ring"></div>
+</div>
+
+<table
+  *ngIf="clientFirstConnexion && !isLoading"
+  class="table table-bordered table-striped loading-position"
+>
+  <thead>
+    <tr>
+      <th scope="col" class="text-style font-family-lato">Name</th>
+      <th scope="col" class="text-style font-family-lato">CIN</th>
+      <th scope="col" class="text-style font-family-lato">MAC</th>
+      <th scope="col" class="text-style font-family-lato">REALM</th>
+      <th scope="col" class="text-style font-family-lato">acctstarttime</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-style font-family-lato">
+        {{ clientFirstConnexion?.Nom }}
+      </td>
+      <td class="text-style font-family-lato">
+        {{ clientFirstConnexion?.CIN }}
+      </td>
+      <td class="text-style font-family-lato">
+        {{ clientFirstConnexion?.mac }}
+      </td>
+      <td class="text-style font-family-lato">
+        {{ clientFirstConnexion?.realm }}
+      </td>
+      <td class="text-style font-family-lato">
+        {{ clientFirstConnexion?.acctstarttime | date : "dd/MM/yyyy HH:mm:ss": "UTC" }}
+      </td>
+    </tr>
+  </tbody>
+</table>

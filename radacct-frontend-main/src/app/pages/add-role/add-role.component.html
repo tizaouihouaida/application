@@ -1,0 +1,105 @@
+<div class="header bg-gradient-success pt-md-7"></div>
+
+<br />
+<br />
+
+<div class="center-block" *ngIf="isLoading">
+  <div class="lds-dual-ring"></div>
+</div>
+
+<div
+  *ngIf="errorMessage"
+  class="alert alert-danger alert-style font-family-lato"
+  role="alert"
+>
+  {{ errorMessage }}
+</div>
+
+<div class="form-position" *ngIf="!isLoading">
+  <form [formGroup]="roleForm">
+    <div class="mb-3">
+      <label for="name" class="form-label font-family-lato">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        placeholder="Enter Role Name"
+        formControlName="name"
+      />
+      <div
+        class="error-text font-family-lato"
+        *ngIf="
+          roleForm.get('name').invalid &&
+          (roleForm.get('name').touched || isSubmit)
+        "
+      >
+        Role name is required
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label font-family-lato"
+        >Description</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        placeholder="Enter Role Description"
+        formControlName="description"
+      />
+      <div
+        class="error-text font-family-lato"
+        *ngIf="
+          roleForm.get('description').invalid &&
+          (roleForm.get('description').touched || isSubmit)
+        "
+      >
+        Role description is required
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label font-family-lato"
+        >Permissions</label
+      >
+      <div class="form-check">
+        <section
+          class="role-section"
+          *ngFor="let permissionGroup of permissionsGroup; index as i"
+        >
+          <span class="example-list-section">
+            <label class="form-control-label font-family-lato permission-group-size">
+              <input
+                (change)="setAll(i)"
+                type="checkbox"
+                [checked]="isAllPermissionsSelected(i)"
+              />
+              {{ permissionGroup.name }}
+            </label>
+          </span>
+          <span class="example-list-section">
+            <ul class="permission-list">
+              <li
+                *ngFor="
+                  let permission of permissionGroup.Permissions;
+                  index as j
+                "
+              >
+                <label class="form-control-label-l2 font-family-lato">
+                  <input
+                    (change)="setPermission(i, j)"
+                    type="checkbox"
+                    [checked]="selectedPermissions.get(permission.id)"
+                  />
+                  {{ permission.name }}
+                </label>
+              </li>
+            </ul>
+          </span>
+        </section>
+      </div>
+    </div>
+    <button (click)="saveRole()" type="submit" class="btn btn-primary font-family-lato">
+      Submit
+    </button>
+  </form>
+</div>

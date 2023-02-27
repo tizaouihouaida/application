@@ -1,0 +1,55 @@
+<div class="center-block" *ngIf="isLoading">
+  <div class="lds-dual-ring"></div>
+</div>
+
+<input
+  *ngIf="!isLoading && (clientsWillReactivate.length > 0 || isFilter)"
+  type="text"
+  placeholder="Search"
+  class="search-input"
+  (keyup)="searchClient($event)"
+/>
+
+<table
+  *ngIf="clientsWillReactivate.length > 0 && !isLoading"
+  class="table table-bordered table-striped loading-position"
+>
+  <thead>
+    <tr>
+      <th scope="col" class="text-style">#</th>
+      <th scope="col" class="text-style">Mac</th>
+      <th scope="col" class="text-style">Tel Adsl</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="
+        let client of clientsWillReactivate
+          | paginate : { itemsPerPage, currentPage };
+        index as i
+      "
+    >
+      <th scope="row" class="text-style">{{ i + 1 }}</th>
+      <td class="text-style">{{ client.mac }}</td>
+      <td class="text-style">{{ client.tel_adsl }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p
+  *ngIf="!isLoading && clientsWillReactivate.length == 0 && !isFilter"
+  class="message-style"
+>
+  No client will reactivate
+</p>
+<p
+  *ngIf="!isLoading && clientsWillReactivate.length == 0 && isFilter"
+  class="message-style"
+>
+  No client will reactivate for the selected filter
+</p>
+
+<pagination-controls
+  *ngIf="clientsWillReactivate.length > 0"
+  (pageChange)="currentPage = $event"
+></pagination-controls>

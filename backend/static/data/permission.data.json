@@ -1,0 +1,93 @@
+[
+    {
+      "group": "PERMISSION_GROUP_MANAGE_USERS",
+      "name": "List",
+      "key": "PERMISSION_LIST_USERS"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_USERS",
+      "name": "Add",
+      "key": "PERMISSION_ADD_USERS"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_USERS",
+      "name": "Edit",
+      "key": "PERMISSION_EDIT_USERS"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_USERS",
+      "name": "Delete",
+      "key": "PERMISSION_DELETE_USERS"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_USERS",
+      "name": "Enable/Disable",
+      "key": "PERMISSION_USER_STATE_ENABLED"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_ROLES",
+      "name": "List",
+      "key": "PERMISSION_LIST_ROLES"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_ROLES",
+      "name": "Add",
+      "key": "PERMISSION_ADD_ROLES"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_ROLES",
+      "name": "Edit",
+      "key": "PERMISSION_EDIT_ROLES"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_ROLES",
+      "name": "Delete",
+      "key": "PERMISSION_DELETE_ROLES"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_RADACCT",
+      "name": "List",
+      "key": "PERMISSION_LIST_RADACCT"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_FIRST_CONNEXION",
+      "name": "Search",
+      "key": "PERMISSION_SEARCH_FIRST_CONNEXION"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_SUSPENSION",
+      "name": "List",
+      "key": "PERMISSION_LIST_SUSPENSION"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_SUSPENSION",
+      "name": "Upload File",
+      "key": "PERMISSION_UPLOAD_SUSPENSION"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_STOCK_MODEM",
+      "name": "Search",
+      "key": "PERMISSION_SEARCH_MODEM"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_CUSTOMERS",
+      "name": "List",
+      "key": "PERMISSION_LIST_CUSTOMERS"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_CUSTOMERS",
+      "name": "Add",
+      "key": "PERMISSION_ADD_CUSTOMERS"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_CUSTOMERS",
+      "name": "Edit",
+      "key": "PERMISSION_EDIT_CUSTOMERS"
+    },
+    {
+      "group": "PERMISSION_GROUP_MANAGE_CUSTOMERS",
+      "name": "Delete",
+      "key": "PERMISSION_DELETE_CUSTOMERS"
+    }
+  ]
+  

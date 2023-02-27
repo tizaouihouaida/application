@@ -1,0 +1,91 @@
+<div class="header bg-gradient-success pt-md-7"></div>
+
+<br />
+<br />
+
+<div class="center-block" *ngIf="isLoading">
+  <div class="lds-dual-ring"></div>
+</div>
+
+<div *ngIf="errorMessage" class="alert alert-danger alert-style font-family-lato" role="alert">
+    {{ errorMessage }}
+  </div>
+
+<div class="form-position" *ngIf="!isLoading">
+  <form [formGroup]="userForm">
+    <div class="mb-3">
+      <label for="firstName" class="form-label font-family-lato">First Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="firstName"
+        placeholder="enter first Name"
+        formControlName="firstName"
+      />
+      <div *ngIf="userForm.get('firstName').invalid &&(userForm.get('firstName').touched || isSubmit)" class="error-text font-family-lato">
+        first name is required
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="lastName" class="form-label font-family-lato">Last Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="lastName"
+        placeholder="enter last Name"
+        formControlName="lastName"
+      />
+      <div *ngIf="userForm.get('lastName').invalid &&(userForm.get('lastName').touched || isSubmit)" class="error-text font-family-lato">
+        last name is required
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label font-family-lato">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="exampleInputEmail1"
+        placeholder="enter email"
+        formControlName="email"
+      />
+      <div *ngIf="userForm.get('email').invalid &&(userForm.get('email').touched || isSubmit)" class="error-text font-family-lato">
+        <span *ngIf="userForm.get('email').errors.required">Email is required</span>
+        <span *ngIf="userForm.get('email').errors.email">Invalid email</span>
+      </div>
+    </div>
+    <div *ngIf="mode === 'create'" class="mb-3">
+      <label for="exampleInputPassword1" class="form-label font-family-lato">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="exampleInputPassword1"
+        placeholder="enter password"
+        formControlName="password"
+      />
+      <div *ngIf="userForm.get('password').invalid &&(userForm.get('password').touched || isSubmit)" class="error-text font-family-lato">
+        Password is required
+      </div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label font-family-lato">Role</label>
+      <ng-select class="font-family-lato" placeholder="Please choose role" formControlName="roleId">
+        <ng-option class="font-family-lato" *ngFor="let role of roles" [value]="role.id">{{
+          role.name
+        }}</ng-option>
+      </ng-select>
+      <div *ngIf="userForm.get('roleId').invalid &&(userForm.get('roleId').touched || isSubmit)" class="error-text font-family-lato">
+        Role is required
+      </div>
+    </div>
+    <div class="mb-3 form-check">
+      <input
+        type="checkbox"
+        formControlName="isEnabled"
+        class="form-check-input"
+        id="exampleCheck1"
+      />
+      <label class="form-check-label font-family-lato" for="exampleCheck1">Enabled</label>
+    </div>
+    <button (click)="saveUser()" type="submit" class="btn btn-primary font-family-lato">Submit</button>
+  </form>
+</div>

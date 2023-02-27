@@ -1,0 +1,150 @@
+.icon-style {
+  width: 20px;
+  height: 20px;
+}
+
+.text-style {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "lato";
+}
+
+.customBackdrop {
+  z-index: inherit;
+}
+
+::ng-deep .modal-backdrop {
+  top: auto;
+}
+
+::ng-deep .modal-header {
+  border-bottom: 1px solid #282a2d;
+}
+
+::ng-deep .modal-body {
+  text-align: center;
+}
+
+.popup-title-position {
+  width: auto;
+  margin: auto;
+  padding-left: 70px;
+  font-family: lato;
+}
+
+.popup-text-style {
+  font-size: 20px;
+  font-family: "lato";
+}
+
+.alert-style {
+  width: max-content;
+  padding: 15px 150px;
+  margin: auto;
+}
+
+.button-add-user-position {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 30px;
+}
+
+.button-add-user {
+  border-radius: 20px;
+  width: 170px;
+  border: none;
+  height: 40px;
+  background-color: #2dcecc;
+  color: #fff;
+  font-family: "lato";
+}
+
+.table {
+  width: 97%;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #000;
+  border-color: #000 transparent #000 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.center-block {
+  text-align: center;
+}
+
+.button-style {
+  border: none;
+  background: none;
+}
+
+.eye-button {
+  vertical-align: bottom;
+  width: 20px;
+  height: 20px;
+}
+
+.loading-position {
+  margin: 40px 20px;
+}
+
+::ng-deep .ngx-pagination {
+  text-align: center;
+  width: 97%;
+}
+
+::ng-deep .ngx-pagination li {
+  border-radius: 50% !important;
+}
+
+::ng-deep .ngx-pagination li a:hover {
+  border-radius: 50% !important;
+}
+
+::ng-deep .pagination-previous {
+  float: left !important;
+}
+
+::ng-deep .pagination-next {
+  float: right !important;
+}
+
+.search-input {
+  border-radius: 20px;
+  height: 35px;
+  width: 300px;
+  border: 1px solid #000;
+  font-family: lato;
+  padding-right: 10px;
+  outline: none;
+  padding-left: 15px;
+  margin: auto;
+  display: flex;
+  font-size: 17px;
+}
+
+.message-style {
+  text-align: center;
+  font-size: 22px;
+  font-family: lato;
+  margin-top: 50px;
+}

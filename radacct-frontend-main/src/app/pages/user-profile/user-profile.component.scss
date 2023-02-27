@@ -1,0 +1,40 @@
+.form-position {
+  width: 60%;
+  margin: auto;
+}
+
+.image-style {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.image-block {
+  margin: auto;
+  width: max-content;
+}
+
+.camera-position {
+  position: relative;
+  left: -110px;
+  top: 66px;
+  color: #fff;
+  background: #e6e9ec;
+  border-radius: 15px;
+}
+
+input[type="file"] {
+  visibility: hidden;
+}
+
+.alert-style {
+  width: 50%;
+  margin: auto;
+  // min-width: ;
+}
+
+.error-text {
+  color: red;
+  font-size: 16px !important;
+  font-weight: "lato";
+}

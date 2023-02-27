@@ -1,0 +1,86 @@
+<div class="header bg-gradient-success pt-md-7"></div>
+
+<br />
+<br />
+
+<div class="center-block" *ngIf="isLoading">
+  <div class="lds-dual-ring"></div>
+</div>
+
+<div
+  *ngIf="errorMessage"
+  class="alert alert-danger alert-style font-family-lato"
+  role="alert"
+>
+  {{ errorMessage }}
+</div>
+
+<div class="form-position" *ngIf="!isLoading">
+  <form [formGroup]="profileForm" class="form-position">
+    <div class="image-block">
+      <img
+        [src]="imagePreview"
+        class="image-style"
+        alt=""
+      />
+      <img
+        src="assets/img/brand/camera.png"
+        class="camera-position"
+        alt=""
+        (click)="filePicker.click()"
+      />
+      <input hidden type="file" #filePicker (change)="onImagePicked($event)" />
+    </div>
+    <div class="mb-3">
+      <label for="firstName" class="form-label font-family-lato"
+        >First Name</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="firstName"
+        placeholder="enter first Name"
+        formControlName="firstName"
+      />
+      <div
+        *ngIf="
+          profileForm.get('firstName').invalid &&
+          (profileForm.get('firstName').touched || isSubmit)
+        "
+        class="error-text font-family-lato"
+      >
+        first name is required
+      </div>
+    </div>
+    <div class="mb-3">
+      <label for="lastName" class="form-label font-family-lato"
+        >Last Name</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="lastName"
+        placeholder="enter last Name"
+        formControlName="lastName"
+      />
+      <div
+        *ngIf="
+          profileForm.get('lastName').invalid &&
+          (profileForm.get('lastName').touched || isSubmit)
+        "
+        class="error-text font-family-lato"
+      >
+        last name is required
+      </div>
+    </div>
+    <div class="text-center">
+      <button
+        (click)="saveProfile()"
+        type="submit"
+        class="btn btn-primary font-family-lato"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

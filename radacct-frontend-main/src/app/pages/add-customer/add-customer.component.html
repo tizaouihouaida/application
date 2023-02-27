@@ -1,0 +1,101 @@
+<div class="header bg-gradient-success pt-md-7"></div>
+
+<br />
+<br />
+
+<div class="center-block" *ngIf="isLoading">
+  <div class="lds-dual-ring"></div>
+</div>
+
+<div
+  *ngIf="errorMessage"
+  class="alert alert-danger alert-style font-family-lato"
+  role="alert"
+>
+  {{ errorMessage }}
+</div>
+
+<div class="form-position" *ngIf="!isLoading">
+  <form [formGroup]="customerForm">
+    <div class="mb-3">
+      <label for="customerName" class="form-label font-family-lato"
+        >Customer Name</label
+      >
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        placeholder="enter first Name"
+        formControlName="name"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="Tel_ADSL" class="form-label font-family-lato">Tel ADSL</label>
+      <input
+        type="text"
+        class="form-control"
+        id="tel_adsl"
+        placeholder="enter Tel Adsl"
+        formControlName="tel_adsl"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="CIN" class="form-label font-family-lato">CIN</label>
+      <input
+        type="text"
+        class="form-control"
+        id="CIN"
+        placeholder="enter CIN"
+        formControlName="CIN"
+      />
+    </div>
+
+    <div class="mb-3">
+      <label for="mac" class="form-label font-family-lato">MAC ADDRESS</label>
+      <input
+        type="text"
+        class="form-control"
+        id="mac"
+        placeholder="enter mac address"
+        formControlName="mac"
+      />
+    </div>
+
+    <div class="form-group">
+      <div>Subscription Type</div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          value="Bee.net.tn"
+          type="radio"
+          name="flexRadioDefault"
+          id="flexRadioDefault1"
+          formControlName="groupname"
+          checked
+        />
+        <label class="form-check-label" for="flexRadioDefault1"> ADSL </label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          value="VBee.net.tn"
+          type="radio"
+          name="flexRadioDefault"
+          id="flexRadioDefault2"
+          formControlName="groupname"
+        />
+        <label class="form-check-label" for="flexRadioDefault2"> VDSL </label>
+      </div>
+    </div>
+
+    <button
+      (click)="saveCustomer()"
+      type="submit"
+      class="btn btn-primary font-family-lato"
+    >
+      Submit
+    </button>
+  </form>
+</div>
